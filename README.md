@@ -1,6 +1,6 @@
-# 🔥 **Phase 1: Formalized Problem Statement**
+# **Phase 1: Formalized Problem Statement**
 
-### 🎯 Core Goal:
+### Core Goal:
 
 Build a **lock-free matching engine**:
 
@@ -18,7 +18,7 @@ Build a **lock-free matching engine**:
     * 32 stocks concurrently
     * < 5 GB heap usage
 
-### 🎛 Required capabilities:
+### Required capabilities:
 
 1. **Place order** (buy/sell, qty, price)
 2. **Cancel order** (by ID)
@@ -29,9 +29,9 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 2: Architectural Constraints**
+# **Phase 2: Architectural Constraints**
 
-### ⚠️ Hard Constraints:
+### Hard Constraints:
 
 ✅ No global locks
 ✅ No blocking queues
@@ -41,7 +41,7 @@ Build a **lock-free matching engine**:
 ✅ Thread-safe snapshot view
 ✅ Real-time publish-subscribe for matched trades
 
-### 💡 Design Patterns to use:
+### Design Patterns to use:
 
 * **Observer** → trade feed
 * **State** → order lifecycle
@@ -50,7 +50,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 3: High-Level System Design**
+# **Phase 3: High-Level System Design**
 
 ### 🧩 Core Components:
 
@@ -67,7 +67,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 4: Detailed Technical Questions (for YOU to answer!)**
+# **Phase 4: Detailed Technical Questions (for YOU to answer!)**
 
 1️⃣ **Data Structures**
 
@@ -105,7 +105,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 5: Implementation Plan**
+# **Phase 5: Implementation Plan**
 
 ### 1️⃣ Setup:
 
@@ -135,7 +135,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 6: Test Plan**
+# **Phase 6: Test Plan**
 
 ### Test goals:
 
@@ -157,7 +157,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🔥 **Phase 7: Metrics to track**
+# **Phase 7: Metrics to track**
 
 * Orders/sec throughput
 * Avg latency per order
@@ -169,7 +169,7 @@ Build a **lock-free matching engine**:
 
 ---
 
-# 🚀 **Phase 8: What to do now**
+# **Phase 8: What to do now**
 
 👉 Step 1: Confirm if you'd like me to generate the following:
 1️⃣ Full **package + class skeleton**

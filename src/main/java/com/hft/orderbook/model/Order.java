@@ -1,6 +1,10 @@
 package com.hft.orderbook.model;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class Order {
+
+    private static final AtomicLong ID_GENERATOR = new AtomicLong(1); // Atomic for thread-safe unique IDs
 
     private OrderSide orderSide;
     private long stockId;
@@ -58,11 +62,25 @@ public class Order {
         this.timestamp = timestamp;
     }
 
-    public Order(OrderSide orderSide, long stockId, long orderId, double price, long quantity) {
+    public Order(OrderSide orderSide, long stockId, double price, long quantity) {
         this.orderSide = orderSide;
         this.stockId = stockId;
-        this.orderId = orderId;
+        this.orderId = ID_GENERATOR.getAndIncrement(); // This should give unique order id in single JVM but concurrent environment.
+        this.price = price;
+        this.quantity = quantity; 
+    }
+
+    public Order(OrderSide side, int stockId, double price, long quantity) {
+        this.orderId = ID_GENERATOR.getAndIncrement(); // Generate unique orderId
+        this.stockId = stockId;
+        this.orderSide = side;
         this.price = price;
         this.quantity = quantity;
+    }
+
+
+    @Override
+    public String toString() {
+        return String.format("Order[%d] %s %.2f x %d", orderId, orderSide, price, quantity);
     }
 }

@@ -52,15 +52,60 @@ public class OrderBook {
         return order.getOrderId();
     }
 
-    public boolean cancelOrder(long orderId) {
-
-        return false;
+ /**
+     * Cancel an existing order.
+     */
+    public void cancelOrder(long orderId) {
+        synchronized (this) {
+            Order order = orderMap.remove(orderId);
+            if (order != null) {
+                if (order.getOrderSide() == OrderSide.BUY) {
+                    buyOrders.remove(order);
+                } else {
+                    sellOrders.remove(order);
+                }
+                System.out.printf("[CANCEL] Order %d cancelled.%n", orderId);
+            } else {
+                System.out.printf("[CANCEL] Order %d not found.%n", orderId);
+            }
+        }
     }
 
-    public boolean modifyOrder(long orderId, double newPrice, long newQuantity) {
+/**
+     * Modify an existing order (price or quantity).
+     */
+    public void modifyOrder(long orderId, double newPrice, long newQuantity) {
+        synchronized (this) {
+            Order order = orderMap.get(orderId);
+            if (order != null) {
+                // Remove old entry
+                if (order.getOrderSide() == OrderSide.BUY) {
+                    buyOrders.remove(order);
+                } else {
+                    sellOrders.remove(order);
+                }
 
-        return false;
+                // Update fields
+                order.setPrice(newPrice);
+                order.setQuantity(newQuantity);
+
+                // Re-insert
+                if (order.getOrderSide() == OrderSide.BUY) {
+                    buyOrders.add(order);
+                } else {
+                    sellOrders.add(order);
+                }
+
+                System.out.printf("[MODIFY] Order %d modified to %.2f x %d%n", orderId, newPrice, newQuantity);
+
+                // Optional: match again
+                match();
+            } else {
+                System.out.printf("[MODIFY] Order %d not found.%n", orderId);
+            }
+        }
     }
+
 
 
     /**
